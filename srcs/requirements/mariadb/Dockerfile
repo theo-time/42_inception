@@ -1,10 +1,17 @@
 FROM debian:buster
 
-# Install required packages 
-RUN apt-get update 
+# Installation
+RUN apt-get update -y
+RUN apt-get upgrade -y
 RUN apt-get install -y mariadb-server
-#RUN mysql_secure_installation
 
+# Configuration
+COPY mariadb.conf	/etc/mysql/mariadb.conf.d/50-server.cnf
+# COPY create_db.sh	/home/teliet/create_db.sh
+# RUN sh /home/teliet/create_db.sh
 
-# Open port 3306
+# Ports
 EXPOSE 3306
+
+
+

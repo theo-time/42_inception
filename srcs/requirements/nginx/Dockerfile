@@ -1,7 +1,8 @@
 FROM debian:buster
 
 # Install required packages 
-RUN apt-get update 
+RUN apt-get update -y
+RUN apt-get upgrade -y
 RUN apt-get install -y nginx
 RUN apt-get install -y openssl
 
@@ -15,6 +16,10 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 # Copy config files
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY index.html /var/www/html/
+
+# Manage rights 
+RUN chmod 755 /var/www/html 
+RUN chown -R www-data:www-data /var/www/html
 
 # Open port 443
 EXPOSE 443
