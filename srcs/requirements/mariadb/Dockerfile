@@ -5,13 +5,14 @@ RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install -y mariadb-server
 
-# Configuration
+# # Configuration
 COPY mariadb.conf	/etc/mysql/mariadb.conf.d/50-server.cnf
-# COPY create_db.sh	/home/teliet/create_db.sh
-# RUN sh /home/teliet/create_db.sh
+COPY create_db.sh	/home/teliet/create_db.sh
+RUN sh /home/teliet/create_db.sh
 
-# Ports
+# # Ports
 EXPOSE 3306
 
+CMD ["mysqld_safe", "-g", "daemon off;"]
 
 

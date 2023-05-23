@@ -1,11 +1,20 @@
-wordpress:
-	docker build srcs/requirements/wordpress/ -t wordpress:1.0
-	docker run -it wordpress
+wordpress-build:
+	docker build srcs/requirements/wordpress/ -t wordpress
 
-mariadb:
-	docker build srcs/requirements/mariadb/ -t mariadb:1.0
-	docker run -it mariadb
+mariadb-build:
+	docker build srcs/requirements/mariadb/ -t mariadb
 
-nginx: 
-	docker build srcs/requirements/nginx/ -t nginx:1.0
-	docker run -d -p 443:443 nginx:1.0
+nginx-build: 
+	docker build srcs/requirements/nginx/ -t nginx
+
+mariadb-run:
+	docker run -t mariadb
+
+nginx-run:
+	docker run -d -p 443:443 nginx
+
+wordpress-run:
+	docker run -t wordpress
+
+fclean: 
+	docker image prune -a

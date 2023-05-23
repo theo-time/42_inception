@@ -10,8 +10,10 @@ RUN apt-get install -y php7.3 \
     mariadb-client
 
 # Download and install wordpress
-RUN mkdir var/www
+RUN mkdir /var/www
 RUN cd  /var/www 
 RUN wget https://fr.wordpress.org/wordpress-6.2.1-fr_FR.tar.gz -P ./
 RUN tar -xzf wordpress-6.2.1-fr_FR.tar.gz && rm wordpress-6.2.1-fr_FR.tar.gz 
 RUN	chown -R root:root wordpress
+
+EXPOSE 9000
