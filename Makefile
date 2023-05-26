@@ -1,3 +1,7 @@
+
+all: 
+	docker-compose -f srcs/docker-compose.yml -d -build
+
 wordpress-build:
 	docker build srcs/requirements/wordpress/ -t wordpress
 
@@ -18,3 +22,5 @@ wordpress-run:
 
 fclean: 
 	docker image prune -a
+	docker volume prune
+

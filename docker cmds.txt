@@ -3,3 +3,5 @@ docker image ls               : display currently built containers
 docker ps                     : display currently running images
 docker run <image_name>       : demarrer une image
 docker run -it nginx          : demarrer une image + ouvrir un terminal
+
+docker compose up : lancer docker compose ?

@@ -13,6 +13,6 @@ RUN sh /home/teliet/create_db.sh
 # # Ports
 EXPOSE 3306
 
-CMD ["mysqld_safe", "-g", "daemon off;"]
+# CMD ["mysqld_safe", "-g", "daemon off;"]
 
 
