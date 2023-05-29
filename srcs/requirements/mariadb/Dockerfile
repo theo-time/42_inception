@@ -7,12 +7,16 @@ RUN apt-get install -y mariadb-server
 
 # # Configuration
 COPY mariadb.conf	/etc/mysql/mariadb.conf.d/50-server.cnf
-COPY create_db.sh	/home/teliet/create_db.sh
-RUN sh /home/teliet/create_db.sh
+COPY create_db.sh	/tmp/create_db.sh
 
 # # Ports
 EXPOSE 3306
 
-# CMD ["mysqld_safe", "-g", "daemon off;"]
+RUN sh /tmp/create_db.sh
+
+# ENTRYPOINT ["sh", "/tmp/create_db.sh"]
+ENTRYPOINT ["exec", "mysqld_safe"]
+
+ 
 
 

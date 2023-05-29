@@ -1,9 +1,9 @@
 # Launch myMARIADB service
-# service myMARIADB start;
-mysqld_safe --skip-grant-tables --skip-networking  &
+service mysql start;
+# mysqld_safe --skip-grant-tables --skip-networking  &
 
 export MARIADB_DATABASE="test_db"
-export MARIADB_USER="myMARIADB"
+export MARIADB_USER="mysql"
 export MARIADB_PASSWORD="1234"
 export MARIADB_ROOT_PASSWORD="1234"
 
@@ -18,4 +18,4 @@ mysql -e "FLUSH PRIVILEGES;"
 
 # Restart myMARIADB
 mysqladmin -u root -p $MARIADB_ROOT_PASSWORD shutdown
-exec mysqld_safe
+exec mysqld_safe --user=mysql --console

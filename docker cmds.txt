@@ -4,4 +4,7 @@ docker ps                     : display currently running images
 docker run <image_name>       : demarrer une image
 docker run -it nginx          : demarrer une image + ouvrir un terminal
 
-docker compose up : lancer docker compose ?
+
+docker-compose -f  <path_docker_compose>  build : build images of a docker compose 
+docker compose up -d : lancer docker-compose, en mode background
+docker compose down

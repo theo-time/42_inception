@@ -22,5 +22,6 @@ wordpress-run:
 
 fclean: 
 	docker image prune -a
+	# docker rmi $(docker images -a -q)
 	docker volume prune
 
