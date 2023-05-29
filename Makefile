@@ -6,7 +6,7 @@ wordpress-build:
 	docker build srcs/requirements/wordpress/ -t wordpress
 
 mariadb-build:
-	docker build srcs/requirements/mariadb/ -t mariadb
+	docker build srcs/requirements/mariadb/ -t test-mariadb
 
 nginx-build: 
 	docker build srcs/requirements/nginx/ -t nginx

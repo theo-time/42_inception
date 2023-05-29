@@ -7,4 +7,8 @@ docker run -it nginx          : demarrer une image + ouvrir un terminal
 
 docker-compose -f  <path_docker_compose>  build : build images of a docker compose 
 docker compose up -d : lancer docker-compose, en mode background
-docker compose down
+docker compose down 
+
+docker image rm srcs-mariadb -f : remove an image
+
+docker rm $(docker ps -a -q) : remove all containers
