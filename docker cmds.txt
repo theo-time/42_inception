@@ -13,4 +13,7 @@ docker image rm srcs-mariadb -f : remove an image
 
 docker rm $(docker ps -a -q) : remove all containers
 
+docker exec -it mariadb bash : bash into a container
+
+
 https://github.com/Forstman1/inception-42/tree/main --> good tuto

@@ -3,16 +3,16 @@ FROM debian:buster
 # Install required packages 
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get -y install wget
-RUN apt-get install -y php7.3 \
+RUN apt-get install -y \
+    php7.3 \
     php-fpm \
     php-mysql \
-    mariadb-client
+    mariadb-client \
+    wget
 
 # Download and install wordpress
-RUN mkdir /var/www
-WORKDIR /var/www
-RUN wget https://fr.wordpress.org/wordpress-6.2.1-fr_FR.tar.gz -P ./
+RUN wget https://fr.wordpress.org/wordpress-6.2.1-fr_FR.tar.gz -P /var/www/html
+WORKDIR /var/www/html
 RUN tar -xzf wordpress-6.2.1-fr_FR.tar.gz && rm wordpress-6.2.1-fr_FR.tar.gz 
 RUN	chown -R root:root wordpress
 
@@ -25,4 +25,4 @@ COPY ./auto_config.sh /tmp/auto_config.sh
 
 EXPOSE 9000
 
-ENTRYPOINT ["sh", "/tmp/auto_config.sh"]
+CMD ["sh", "/tmp/auto_config.sh"]
