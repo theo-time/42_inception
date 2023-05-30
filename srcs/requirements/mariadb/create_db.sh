@@ -1,25 +1,18 @@
+#!/bin/bash
 # Launch myMARIADB service
 # mysqld_safe --skip-grant-tables &
 service mysql start;
 
-export MARIADB_DATABASE="test_db"
-export MARIADB_USER="mysql"
-export MARIADB_PASSWORD="12345789"
-export MARIADB_ROOT_PASSWORD="1234"
+echo "CREATE DATABASE IF NOT EXISTS $DB_NAME ;" > db1.sql
+echo "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD' ;" >> db1.sql
+echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' ;" >> db1.sql
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY $DB_ROOT_PASSWORD;" >> db1.sql
+echo "FLUSH PRIVILEGES;" >> db1.sql
 
-# Create database
-mysql -e "CREATE DATABASE IF NOT EXISTS \`${MARIADB_DATABASE}\`;" 
+mysql < db1.sql
 
-# Manage users
-mysql -e "CREATE USER IF NOT EXISTS \`${MARIADB_USER}\`@'localhost' IDENTIFIED BY '${MARIADB_PASSWORD}';"
-mysql -e "GRANT ALL PRIVILEGES ON \`${MARIADB_DATABASE}\`.* TO \`${MARIADB_USER}\`@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';"
-# mysql -e "ALTER USER root@localhost IDENTIFIED BY '${MARIADB_ROOT_PASSWORD}';"
-echo "flush privileges"
-mysql -e "FLUSH PRIVILEGES;"
+kill $(cat /var/run/mysqld/mysqld.pid)
 
-# Restart myMARIADB
-echo "shutdown mysql"
-# mysqladmin -u root -p$MARIADB_ROOT_PASSWORD shutdown
-# exec mysqld_safe --user=mysql --console
 
-# sleep 1000
+sleep 10
+# mysqld

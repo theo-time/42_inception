@@ -12,3 +12,5 @@ docker compose down
 docker image rm srcs-mariadb -f : remove an image
 
 docker rm $(docker ps -a -q) : remove all containers
+
+https://github.com/Forstman1/inception-42/tree/main --> good tuto

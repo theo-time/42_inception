@@ -1,12 +1,10 @@
-sleep 10
 
-export SQL_DATABASE="test_db"
-export SQL_USER="mysql"
-export SQL_PASSWORD="12345789"
+echo "Wordpress tries to connect to $DB_NAME as $DB_USER with password $DB_PASSWORD" 
 
+# if !( wp core is-installed --alow-root & [ -f "$(wp config path --allow-root)" ]); then
 wp config create	--allow-root \
-                    --dbname=$SQL_DATABASE \
-                    --dbuser=$SQL_USER \
-                    --dbpass=$SQL_PASSWORD \
+                    --dbname=$DB_NAME \
+                    --dbuser=$DB_USER \
+                    --dbpass=$DB_PASSWORD \
                     --dbhost=mariadb:3306 \
                     --path='/var/www/wordpress'
