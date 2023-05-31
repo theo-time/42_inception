@@ -69,11 +69,28 @@ services:
   adminer:
     container_name: adminer
     build: ./requirements/bonus/adminer/.
-    image: adminer:42
+    image: adminer
     depends_on:
       - mariadb
     ports:
       - "600:80"
+    networks:
+      - inception
+    restart: always
+
+  cadvisor:
+    container_name: cadvisor
+    build: ./requirements/bonus/cadvisor/.
+    image: cadvisor
+    depends_on:
+      - redis
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      # - /var/lib/docker/:/var/lib/docker:ro
     networks:
       - inception
     restart: always
