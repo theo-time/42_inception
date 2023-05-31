@@ -7,7 +7,7 @@ ARG DB_PASSWORD
 ARG DB_ROOT_PASSWORD
 
 # Installation
-RUN apt-get update -y
+RUN apt-get update -y apt install redis-server -y
 RUN apt-get install -y mariadb-server mariadb-client
 
 # Configuration

@@ -51,6 +51,21 @@ services:
     - "443:443"
     restart: on-failure
 
+
+  redis:
+    container_name: redis
+    networks:
+    - inception
+    depends_on: 
+    - nginx
+    build:
+      context: requirements/bonus/redis
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+    - "444"
+    restart: on-failure
+
 volumes:
   wordpress:
     driver: local

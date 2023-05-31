@@ -24,13 +24,11 @@ else
     echo "wp-config already exists"
 fi
 
+echo "define( 'WP_REDIS_HOST', 'redis' );" >> /var/www/wordpress/wp-config.php
+echo "define( 'WP_REDIS_PORT', 6379 );" >> /var/www/wordpress/wp-config.php
+echo "define('WP_CACHE', true);" >> /var/www/wordpress/wp-config.php
+
 # Config and launch php 
 mkdir /run/php
 sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 /usr/sbin/php-fpm7.3 -F
-
-while [ 1 ]
-do
-    foo
-    sleep 2
-done
