@@ -66,6 +66,18 @@ services:
     - "444"
     restart: on-failure
 
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer/.
+    image: adminer:42
+    depends_on:
+      - mariadb
+    ports:
+      - "600:80"
+    networks:
+      - inception
+    restart: always
+
 volumes:
   wordpress:
     driver: local
