@@ -15,5 +15,7 @@ docker rm $(docker ps -a -q) : remove all containers
 
 docker exec -it mariadb bash : bash into a container
 
+docker rm $(docker ps --filter status=exited -q)
+
 
 https://github.com/Forstman1/inception-42/tree/main --> good tuto
