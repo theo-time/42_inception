@@ -7,7 +7,7 @@ ARG DB_PASSWORD
 ARG DB_ROOT_PASSWORD
 
 # Installation
-RUN apt-get update -y apt install redis-server -y
+RUN apt-get update -y 
 RUN apt-get install -y mariadb-server mariadb-client
 
 # Configuration
@@ -19,9 +19,6 @@ RUN service mysql start && mysql -u root -p${DB_ROOT_PASSWORD} -e "CREATE DATABA
 RUN service mysql start && mysql -u root -p${DB_ROOT_PASSWORD} -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';" 
 RUN service mysql start && mysql -u root -p${DB_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';FLUSH PRIVILEGES;"
 RUN service mysql start && mysql -u root -p${DB_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"  
-
-# Ports
-EXPOSE 3306
 
 # ENTRYPOINT ["sh", "/tmp/create_db3.sh"]
 CMD ["mysqld"]

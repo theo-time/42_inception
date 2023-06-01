@@ -17,7 +17,17 @@ docker exec -it mariadb bash : bash into a container
 
 docker rm $(docker ps --filter status=exited -q)
 
-
 adminer URL : http://127.0.0.1:600/adminer.php
 
 https://github.com/Forstman1/inception-42/tree/main --> good tuto
+
+
+TODO :
+- verify and finish REDIS 
+- verify and finish CADVISOR 
+- verify and finish FTP 
+- add a small static website
+- clean conf files
+
+- verify that every container runs in foreground
+- 

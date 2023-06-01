@@ -1,10 +1,8 @@
 
-echo "Wordpress tries to connect to $DB_NAME as $DB_USER with password $DB_PASSWORD" 
-# sleep 10
 
 
 # Configure Wordpress website
-if [ ! -f /var/www/wordpress/wp-config.php ]; then
+if [ ! -f /var/www/html/wordpress/wp-config.php ]; then
     wp config create	--allow-root \
                         --dbname="$DB_NAME" \
                         --dbuser="$DB_USER" \
@@ -20,13 +18,15 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
                     --admin_email=$WP_ADMIN_EMAIL \
                     --skip-email \
                     --path='/var/www/html/wordpress'
-else 
-    echo "wp-config already exists"
-fi
 
-echo "define( 'WP_REDIS_HOST', 'redis' );" >> /var/www/wordpress/wp-config.php
-echo "define( 'WP_REDIS_PORT', 6379 );" >> /var/www/wordpress/wp-config.php
-echo "define('WP_CACHE', true);" >> /var/www/wordpress/wp-config.php
+    wp user create $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD --allow-root --path='/var/www/html/wordpress'
+
+    echo "define( 'WP_REDIS_HOST', 'redis' );" >> /var/www/wordpress/wp-config.php
+    echo "define( 'WP_REDIS_PORT', 6379 );" >> /var/www/wordpress/wp-config.php
+    echo "define('WP_CACHE', true);" >> /var/www/wordpress/wp-config.php
+else 
+    echo "wp-config already exists, skipping installation"
+fi
 
 # Config and launch php 
 mkdir /run/php

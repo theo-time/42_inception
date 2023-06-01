@@ -23,6 +23,4 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 
 COPY ./auto_config.sh /tmp/auto_config.sh
 
-EXPOSE 9000
-
 CMD ["sh", "/tmp/auto_config.sh"]
