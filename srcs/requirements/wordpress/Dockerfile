@@ -8,7 +8,9 @@ RUN apt-get install -y \
     php-fpm \
     php-mysql \
     mariadb-client \
-    wget
+    wget \
+    redis \
+	php-redis 
 
 # Download and install wordpress
 RUN wget https://fr.wordpress.org/wordpress-6.2.1-fr_FR.tar.gz -P /var/www/html

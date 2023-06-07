@@ -1,25 +1,20 @@
-# launch ftp server
-service vsftpd start
+#!/bin/sh
 
-# add ftp user and set password
-# adduser ftpuser --disabled-password
-# usermod --password $(echo $FTP_PASSWORD | openssl passwd -1 -stdin) ftpuser
+if [ ! -f "/etc/vsftpd/vsftpd.conf.bak" ]; then
 
+    mkdir -p /var/www/html
 
-# Create a directory for ftp
-# mkdir /home/ftpuser/ftp
+    cp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.bak
+    mv /tmp/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
-# Give ownership on it to ftpuser
-chown ftpuser:ftpuser /home/ftpuser/ftp
+    # Add the FTP_USER, change his password and declare him as the owner of wordpress folder and all subfolders
+    adduser $FTP_USR --disabled-password
+    echo "$FTP_USR:$FTP_PWD" | /usr/sbin/chpasswd 
+    chown -R $FTP_USR:$FTP_USR /var/www/html
 
-# Set the directory as default home for ftpuser
-usermod -d /home/ftpuser/ftp ftpuser
+	#chmod +x /etc/vsftpd/vsftpd.conf
+    echo $FTP_USR | tee -a /etc/vsftpd.userlist 
 
-usermod -s /sbin/nologin ftpuser
+fi
 
-echo "ftpuser" > /etc/vsftpd/userlist
-
-# restart ftp server
-service vsftpd stop
-
-/usr/sbin/vsftpd
+/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf

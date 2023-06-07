@@ -59,7 +59,7 @@ services:
       dockerfile: Dockerfile
     env_file: .env
     ports:
-    - "444"
+     - '6379:6379'
     restart: on-failure
 
   adminer:
@@ -93,12 +93,13 @@ services:
 
   ftp:
     container_name: ftp
+    env_file: .env    
     build: ./requirements/bonus/ftp/.
     image: ftp
     depends_on:
       - redis
     ports:
-      - "40000-40005:40000-40005"
+      - "21100-21110:21100-21110"
       - "20:20"
       - "21:21"
     volumes:
