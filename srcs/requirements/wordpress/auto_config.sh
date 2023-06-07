@@ -3,6 +3,9 @@
 
 # Configure Wordpress website
 if [ ! -f /var/www/html/wordpress/wp-config.php ]; then
+
+    cd /var/www/html/wordpress
+
     wp config create	--allow-root \
                         --dbname="$DB_NAME" \
                         --dbuser="$DB_USER" \
@@ -19,18 +22,16 @@ if [ ! -f /var/www/html/wordpress/wp-config.php ]; then
                     --skip-email \
                     --path='/var/www/html/wordpress'
 
-    wp user create $WP_USR $WP_EMAIL \
-                    --role=author \
-                    --user_pass=$WP_PWD \
-                    --allow-root \
-                    --path='/var/www/html/wordpress'
+    wp user create $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD --allow-root --path='/var/www/html/wordpress'
+
+
+    # wp config set WP_REDIS_CLIENT phpredis 
+    wp config set WP_REDIS_HOST redis --allow-root
+  	wp config set WP_REDIS_PORT 6379 --raw --allow-root
 
     wp plugin install redis-cache --activate --allow-root
-    wp plugin install query-monitor --activate --allow-root
-    # wp config set WP_REDIS_CLIENT phpredis 
-    wp config set WP_REDIS_HOST redis --allow-root #I put --allowroot because i am on the root user on my VM
-  	wp config set WP_REDIS_PORT 6379 --raw --allow-root
-    # echo "define('WP_CACHE', true);" >> /var/www/wordpress/wp-config.php
+    wp plugin install query-monitor --activate --allow-root 
+    wp redis enable --allow-root 
 else 
     echo "wp-config already exists, skipping installation"
 fi
